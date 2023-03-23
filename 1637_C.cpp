@@ -105,17 +105,21 @@ int32_t main()
 	for (int t = 1; t <= tt; t++){
 		// Code here
 		int n;
-		cin >> n;
-		vector <int> v(n);
-		for (int i = 0; i < n; i++){
-			cin >> v[i];
-		}
-		int cnto = 0 , cnte = 0;
-
-		for (int i = 1; i < n - 1; i++){
-			if (v[i] & 1) cnto++;
-			else cnte++;
-		}
+	    cin >> n;
+	    vector<int> a(n);
+	    for (auto &x : a)
+	        cin >> x;
+	 
+	    if (*max_element(a.begin() + 1, a.end() - 1) == 1 || (n == 3 && a[1] % 2 == 1)) {
+	        cout << "-1\n";
+	        continue;
+	    }
+	 
+	    int answer = 0;
+	    for (int i = 1; i < n - 1; i++)
+	        answer += (a[i] + 1) / 2;
+	 
+	    cout << answer << '\n';
 		
 
 		// cout << "Case# " << t << ": " << /* ans here */ << endl;
