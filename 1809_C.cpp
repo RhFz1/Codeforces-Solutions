@@ -104,24 +104,55 @@ int32_t main()
 
 	for (int t = 1; t <= tt; t++){
 		// Code here
-		int n;
-	    cin >> n;
-	    vector<int> a(n);
-	    for (auto &x : a)
-	        cin >> x;
-	 
-	    if (*max_element(a.begin() + 1, a.end() - 1) == 1 || (n == 3 && a[1] % 2 == 1)) {
-	        cout << "-1\n";
-	        continue;
-	    }
-	 
-	    int ans = 0;
-	    for (int i = 1; i < n - 1; i++){
-	    	ans += (a[i] + 1)/ 2;
-	    }
-	    cout << ans << endl;
+		int n , k;
+
+		cin >> n >> k;
+
+		vector <int > arr(n + 1 , false);
+		arr[1] = true;
+
+		vector <int> ans(n + 1, -1);
 		
 
+		if (k <= n){
+			for (int i = 1; i <= n; i++){
+				if (i < k){
+					cout << -1 << ' ';
+				}else if (i == k){
+					cout << k << ' ';
+				}else cout << -i << ' ';
+			}
+			cout << endl;
+		}else{
+			ans[1] = n;
+			k -= n;
+			for (int i = 2; i <= n; i++){
+				if (k == 0) break;
+				if (n - i + 1 > k){
+
+				}else if (n - i + 1 == k){
+					if (arr[i - 1]){
+						ans[i] = n - i + 1;
+					}else{
+						ans[i - 1] = -(n - i + 2);
+						ans[i] = n - i + 1;
+						arr[i - 1] = true;
+						arr[i] = true;
+					}
+					k = 0;
+				}else{
+					// n - i + 1 < k
+					ans[i] = n - i + 1;
+					arr[i] = true;
+					k -= (n - i + 1);
+				}
+				// cout << i<< "->" << ans[i] << ' ' << k << endl;
+			}
+			for (int i = 1; i <= n; i++){
+				cout << ans[i] << ' ';
+			}
+			cout << endl;
+		}
 		// cout << "Case# " << t << ": " << /* ans here */ << endl;
 		
 	}

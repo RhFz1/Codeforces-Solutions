@@ -104,24 +104,36 @@ int32_t main()
 
 	for (int t = 1; t <= tt; t++){
 		// Code here
-		int n;
-	    cin >> n;
-	    vector<int> a(n);
-	    for (auto &x : a)
-	        cin >> x;
-	 
-	    if (*max_element(a.begin() + 1, a.end() - 1) == 1 || (n == 3 && a[1] % 2 == 1)) {
-	        cout << "-1\n";
-	        continue;
-	    }
-	 
-	    int ans = 0;
-	    for (int i = 1; i < n - 1; i++){
-	    	ans += (a[i] + 1)/ 2;
-	    }
-	    cout << ans << endl;
-		
+		int n , x;
+		cin >> n >> x;
 
+		vector <int> v(n);
+		for (auto &i : v)
+			cin >> i;
+
+		vector <int> lx , ans(n);
+
+		bool sorted = is_sorted(all(v));
+		if (sorted || x <= n / 2){
+			cout << "YES" << endl;
+		}else{
+			for (int i = 0; i < n - x; i++){
+				lx.push_back(v[i]);
+			}
+			for (int i = n - 1; i >= x; i--){
+				lx.push_back(v[i]);
+			}
+			sort(all(lx));
+			for (int i = 0; i < n - x; i++){
+				ans.push_back(lx[i]);
+			}for (int i = n - x; i < x; i++){
+				ans.push_back(v[i]);
+			}for (int i = n - x; i < lx.size(); i++){
+				ans.push_back(lx[i]);
+			}
+			if (is_sorted(all(ans))) cout << "YES" << endl;
+			else cout << "NO" << endl;
+		}
 		// cout << "Case# " << t << ": " << /* ans here */ << endl;
 		
 	}

@@ -104,23 +104,57 @@ int32_t main()
 
 	for (int t = 1; t <= tt; t++){
 		// Code here
+
 		int n;
-	    cin >> n;
-	    vector<int> a(n);
-	    for (auto &x : a)
-	        cin >> x;
-	 
-	    if (*max_element(a.begin() + 1, a.end() - 1) == 1 || (n == 3 && a[1] % 2 == 1)) {
-	        cout << "-1\n";
-	        continue;
-	    }
-	 
-	    int ans = 0;
-	    for (int i = 1; i < n - 1; i++){
-	    	ans += (a[i] + 1)/ 2;
-	    }
-	    cout << ans << endl;
-		
+		char a;
+		string s;
+		cin >> n >> a;
+		cin >> s;
+		s = '$' + s;
+		int eve = 0 , odd = 0;
+		for (int i = 1; i <= n; i++){
+			if (s[i] != a){
+				if (i & 1) odd++;
+				else eve++;
+			}
+		}
+		if (eve != 0 and odd == 0){
+			if (n & 1){
+				cout << 1 << endl;
+				cout << n << endl;
+			}else{
+				cout << 1 << endl;
+				cout << n - 1 << endl;
+			}
+		}else if (odd != 0 and eve == 0){
+			cout << 1 << endl;
+			cout << 2 << endl;
+		}else if (odd != 0 and eve != 0){
+			if (s[n] == a){
+				cout << 1 << endl;
+				cout << n << endl;
+			}else {
+				bool flag = false;
+				int val = -1;
+				for (int i = n - 1; i > n / 2; i--){
+					if (s[i] == a) {
+						flag = true;
+						val = i;
+						break;
+					}
+				}
+				if (flag) {
+					cout << 1 << endl;
+					cout << val << endl;
+				}else {
+					cout << 2 << endl;
+					cout << n << ' ' << n - 1 << endl;
+				}
+			}
+		}else {
+			cout << 0 << endl;
+		}
+
 
 		// cout << "Case# " << t << ": " << /* ans here */ << endl;
 		

@@ -104,24 +104,51 @@ int32_t main()
 
 	for (int t = 1; t <= tt; t++){
 		// Code here
-		int n;
-	    cin >> n;
-	    vector<int> a(n);
-	    for (auto &x : a)
-	        cin >> x;
+		int n , a , b;
+		cin >> n >> a >> b;
+
+		if (abs(a - b) > 1) {
+	    cout << "-1\n";
+	    continue;
+	  }
 	 
-	    if (*max_element(a.begin() + 1, a.end() - 1) == 1 || (n == 3 && a[1] % 2 == 1)) {
-	        cout << "-1\n";
-	        continue;
-	    }
+	  if (a + b > n - 2) {
+	    cout << "-1\n";
+	    continue;
+	  }
 	 
-	    int ans = 0;
-	    for (int i = 1; i < n - 1; i++){
-	    	ans += (a[i] + 1)/ 2;
+	  if (a > b) {
+	    int l = 1, r = n;
+	    for (int i = 0; i < 2*a; ++i) {
+	      if (i%2==0) cout << l++ << " ";
+	      else cout << r-- << " ";
 	    }
-	    cout << ans << endl;
+	    for (int i = 2*a; i < n; ++i) cout << r-- << " ";
+	  }`
+	  else if (b > a) {
+	    int l = 1, r = n;
+	    for (int i = 0; i < 2*b; ++i) {
+	      if (i%2==0) cout << r-- << " ";
+	      else cout << l++ << " ";
+	    }
+	    for (int i = 2*b; i < n; ++i) cout << l++ << " ";
+	  }
+	  else {
+	    int l = 1, r = n;
+	    for (int i = 0; i < 2*a + 1; ++i) {
+	      if (i%2==0) cout << l++ << " ";
+	      else cout << r-- << " ";
+	    }
+	    for (int i = 2*a + 1; i < n; ++i) cout << l++ << " ";
+	  }
+	 
+	  cout << '\n';
+
 		
 
+
+
+		
 		// cout << "Case# " << t << ": " << /* ans here */ << endl;
 		
 	}

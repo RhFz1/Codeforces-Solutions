@@ -98,30 +98,59 @@ int32_t main()
 
 	clock_t z = clock();
 
+	setprecision(12);
+
 
 	int tt;
 	cin >> tt;
 
 	for (int t = 1; t <= tt; t++){
 		// Code here
-		int n;
-	    cin >> n;
-	    vector<int> a(n);
-	    for (auto &x : a)
-	        cin >> x;
-	 
-	    if (*max_element(a.begin() + 1, a.end() - 1) == 1 || (n == 3 && a[1] % 2 == 1)) {
-	        cout << "-1\n";
-	        continue;
-	    }
-	 
-	    int ans = 0;
-	    for (int i = 1; i < n - 1; i++){
-	    	ans += (a[i] + 1)/ 2;
-	    }
-	    cout << ans << endl;
-		
+		double n;
+		cin >> n;
 
+		vector <double> v(n);
+		for (auto &i : v)
+			cin >> i;
+
+		unordered_map <double , int> mp;
+
+		for (int i = 0; i < n; i++){
+			mp[v[i]]++;
+		}
+		sort(all(v));
+		double sum = 0;
+
+		for (double val : v) sum += val;
+
+		cout << setprecision(12);
+
+		double k = sum / n;
+
+		double target = 2.000000000000 * k;
+
+		int i = 0 , j = n - 1;
+
+		int cnt = 0;
+		while(i < j){	
+
+			if (abs(target - (v[i] + v[j])) <= 1e-9){
+				if (v[i] == v[j]){
+					cnt += ((j - i) * (j - i + 1)) / 2;
+					break;
+				}else{
+					int temp = mp[v[i]] * mp[v[j]];
+					cnt += (temp);
+					i += mp[v[i]];
+					j -= mp[v[j]];
+				}
+			}else if (target > v[i] + v[j]){
+				i++;
+			}else if (target < (v[i] + v[j])) {
+				j--;
+			}
+		} 
+		cout << cnt << endl;
 		// cout << "Case# " << t << ": " << /* ans here */ << endl;
 		
 	}

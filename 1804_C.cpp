@@ -104,23 +104,20 @@ int32_t main()
 
 	for (int t = 1; t <= tt; t++){
 		// Code here
-		int n;
-	    cin >> n;
-	    vector<int> a(n);
-	    for (auto &x : a)
-	        cin >> x;
-	 
-	    if (*max_element(a.begin() + 1, a.end() - 1) == 1 || (n == 3 && a[1] % 2 == 1)) {
-	        cout << "-1\n";
-	        continue;
-	    }
-	 
-	    int ans = 0;
-	    for (int i = 1; i < n - 1; i++){
-	    	ans += (a[i] + 1)/ 2;
-	    }
-	    cout << ans << endl;
-		
+		int n , x, p;
+		cin >> n >> x >> p;
+
+		bool flag = false;
+
+		for (int i = 1; i <= min(2 * n , p); i++){
+			int temp = i * (i + 1) / 2;
+			if (temp % n == (n - x) % n){
+				flag = true;
+				break;
+			}
+		}
+		if (flag) cout << "YES" << endl;
+		else cout << "NO" << endl;
 
 		// cout << "Case# " << t << ": " << /* ans here */ << endl;
 		
