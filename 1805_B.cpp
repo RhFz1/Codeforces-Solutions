@@ -104,53 +104,48 @@ int32_t main()
 
 	for (int t = 1; t <= tt; t++){
 		// Code here
-		int n , m , d;
-		cin >> n >> m >> d;
-		vector <int> a(m);
-		unordered_map <int , int> mp;
+		int n;
+		cin >> n;
+		string s;
+		cin >> s;
+		string nn = s;
 
-		for (int i = 1; i <= n; i++){
-			int x;
-			cin >> x;
-			mp[x] = i;
-		}
-		for (int i = 0; i < m; i++){
-			cin >> a[i];
-		}
+		reverse(all(s));
 
-		bool flag = false;
-		for (int i = 1; i < m; i++){
-			if (mp[a[i - 1]] >= mp[a[i]]){
-				// cout << a[i - 1] << ' ' << mp[a[i - 1]] << ' ' << a[i] << ' ' << mp[a[i]] << endl;
-				flag = true;
-				break;
+		char c = 'z';
+
+		int temp = -1;
+
+		for (int i = 0; i < n; i++){
+			if (s[i] < c){
+				c = s[i];
+				temp = n - 1 - i;
 			}
 		}
-
-		
-
-
-		if (flag) cout << 0 << endl;
-		else{
-			int best = 1e9;
-			int need = -1;
-			bool flag = false;
-			for (int i = 1; i < m; i++){
-				need = d - (mp[a[i]] - mp[a[i - 1]]) + 1;
-				if (mp[a[i - 1]] - 1 + n - mp[a[i]] >= need and need >= 0){
-					best = min(best , need);
+		// cout << c << ' ' << temp << endl;
+		if (s[n - 1] == 'a'){
+			if (c != 'a'){
+				cout << nn << endl;
+			}else{
+				cout << c;
+				for (int i = 0; i < n; i++){
+					if (i == temp) continue;
+					else cout << nn[i];
 				}
-				if (mp[a[i]] - mp[a[i - 1]] > d){
-					flag = true;
-					break;
-				}
-				best = min(best , mp[a[i]] - mp[a[i - 1]]);
+				cout << endl;
 			}
-			if (flag) cout << 0 << endl;
-			else cout << best << endl;
+		}else{
+			if (temp == -1){
+				cout << nn << endl;
+			}else{
+				cout << c;
+				for (int i = 0; i < n; i++){
+					if (i == temp) continue;
+					else cout << nn[i];
+				}
+				cout << endl;
+				}
 		}
-
-
 		// cout << "Case# " << t << ": " << /* ans here */ << endl;
 		
 	}

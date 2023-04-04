@@ -86,6 +86,20 @@ void calc_fact(){
 	}
 }
 
+int solve(float h , float t , float k , float l){
+	int val = ((t - l) * (t - l) - 4 * h * k);
+	if (val < 0) return -1;
+	else if (val == 0) return 0;
+	else return 1;
+}
+
+
+struct paras{
+	int a;
+	int b;
+	int c;
+};
+
 
 int32_t main()
 {
@@ -102,58 +116,50 @@ int32_t main()
 	int tt;
 	cin >> tt;
 
-	for (int t = 1; t <= tt; t++){
+	for (int q = 1; q <= tt; q++){
 		// Code here
-		int n , m , d;
-		cin >> n >> m >> d;
-		vector <int> a(m);
-		unordered_map <int , int> mp;
+		int n , m;
+		cin >> n >> m;
+		vector <int> s(n);
 
-		for (int i = 1; i <= n; i++){
+		paras p[m];
+
+		for (int i = 0; i < n; i++){
 			int x;
 			cin >> x;
-			mp[x] = i;
+			s[i] = x;
 		}
-		for (int i = 0; i < m; i++){
-			cin >> a[i];
-		}
-
-		bool flag = false;
-		for (int i = 1; i < m; i++){
-			if (mp[a[i - 1]] >= mp[a[i]]){
-				// cout << a[i - 1] << ' ' << mp[a[i - 1]] << ' ' << a[i] << ' ' << mp[a[i]] << endl;
-				flag = true;
-				break;
-			}
-		}
-
+		sort(all(s));
 		
-
-
-		if (flag) cout << 0 << endl;
-		else{
-			int best = 1e9;
-			int need = -1;
-			bool flag = false;
-			for (int i = 1; i < m; i++){
-				need = d - (mp[a[i]] - mp[a[i - 1]]) + 1;
-				if (mp[a[i - 1]] - 1 + n - mp[a[i]] >= need and need >= 0){
-					best = min(best , need);
-				}
-				if (mp[a[i]] - mp[a[i - 1]] > d){
-					flag = true;
-					break;
-				}
-				best = min(best , mp[a[i]] - mp[a[i - 1]]);
-			}
-			if (flag) cout << 0 << endl;
-			else cout << best << endl;
+		for (int i = 0; i < m; i++){
+			cin >> p[i].a >> p[i].b >> p[i].c;
 		}
+		int h , t , k;
 
+		for (int i = 0; i < m; i++){
+			h = p[i].a;
+			t = p[i].b;
+			k = p[i].c;
+			int ind = lower_bound(s.begin() , s.end() , t) - s.begin();
+
+			if (ind < n && (s[ind] - t) * (s[ind] - t) < 4 * h * k){
+				cout << "YES" << endl;
+				cout << s[ind] << endl;
+				continue;
+			}
+			if (ind > 0 && (s[ind - 1] - t) * (s[ind - 1] - t) < 4 * h * k){
+				cout << "YES" << endl;
+				cout << s[ind - 1] << endl;
+				continue;
+			}
+
+			cout << "NO" << endl;		
+		}
+	}
 
 		// cout << "Case# " << t << ": " << /* ans here */ << endl;
 		
-	}
+	
 
 	cerr << "Run Time : " << ((double)(clock() - z) / CLOCKS_PER_SEC);
 
